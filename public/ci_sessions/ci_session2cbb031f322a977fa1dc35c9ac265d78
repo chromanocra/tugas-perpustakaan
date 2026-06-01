@@ -1,0 +1,10 @@
+__ci_last_regenerate|i:1779798893;_ci_previous_url|s:48:"http://localhost:8080/index.php/admin/input-buku";ses_id|s:6:"000001";ses_user|s:13:"Administrator";ses_level|s:1:"1";idUpdateBuku|s:6:"BKU001";error|s:277:"<!-- DEBUG-VIEW START 1 SYSTEMPATH\Validation\Views\list.php -->
+	<div class="errors" role="alert">
+		<ul>
+					<li>Cover buku wajib diunggah.</li>
+					<li>File e-book wajib diunggah.</li>
+				</ul>
+	</div>
+
+<!-- DEBUG-VIEW ENDED 1 SYSTEMPATH\Validation\Views\list.php -->
+";__ci_vars|a:3:{s:5:"error";s:3:"old";s:13:"_ci_old_input";s:3:"old";s:21:"_ci_validation_errors";s:3:"old";}_ci_old_input|a:2:{s:3:"get";a:0:{}s:4:"post";a:10:{s:10:"judul_buku";s:25:"Shingeki No Kyojin Vol.21";s:9:"pengarang";s:17:"Masashi Kishimoto";s:8:"penerbit";s:8:"Shuiesha";s:5:"tahun";s:4:"2021";s:16:"jumlah_eksemplar";s:2:"12";s:11:"id_kategori";s:6:"KTG001";s:10:"keterangan";s:7:"PEAK EA";s:6:"id_rak";s:6:"RAK001";s:9:"old_cover";s:28:"Cover-Buku-260526014849.jpeg";s:9:"old_ebook";s:24:"E-Book-260526014849.jpeg";}}_ci_validation_errors|a:2:{s:10:"cover_buku";s:26:"Cover buku wajib diunggah.";s:6:"e_book";s:27:"File e-book wajib diunggah.";}

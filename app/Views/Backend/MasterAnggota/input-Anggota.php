@@ -5,19 +5,20 @@
             <li>Master Data Anggota</li>
             <li class="active">Input Data Anggota</li>
         </ol>
-    </div><!--/.row-->
+    </div>
+    <!--/.row-->
 
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <h3>Input Anggota</h3>
-                    <hr/>
+                    <hr />
                     <form action="<?php echo base_url('admin/simpan-anggota');?>" method="post">
                         <div class="form-group col-md-6">
                             <label>Nama Anggota</label>
-                            <input type="text" class="form-control" name="nama" 
-                            placeholder="Masukkan Nama Anggota" required="required">
+                            <input type="text" class="form-control" name="nama" placeholder="Masukkan Nama Anggota"
+                                required="required">
                         </div>
                         <div style="clear: both;"></div>
                         <div class="form-group col-md-6">
@@ -30,22 +31,21 @@
                         </div>
                         <div style="clear: both;"></div>
                         <div class="form-group col-md-6">
-                            <label>No. TLP</label>
-                            <input type="text" class="form-control" name="no_telp" 
-                            placeholder="Masukkan No. TLP" required="required"
-                            onkeypress="return goodchars(event,'0123456789',this)">
+                            <label>No. TELP</label>
+                            <input type="text" class="form-control" name="no_telp" placeholder="Masukkan No. TELP"
+                                required="required" onkeypress="return goodchars(event,'0123456789',this)">
                         </div>
                         <div style="clear: both;"></div>
                         <div class="form-group col-md-6">
                             <label>Alamat</label>
-                            <input type="text" class="form-control" name="alamat" 
-                            placeholder="Masukkan Alamat" required="required">
+                            <input type="text" class="form-control" name="alamat" placeholder="Masukkan Alamat"
+                                required="required">
                         </div>
                         <div style="clear: both;"></div>
                         <div class="form-group col-md-6">
                             <label>Email</label>
-                            <input type="email" class="form-control" name="email" 
-                            placeholder="Masukkan Email" required="required">
+                            <input type="email" class="form-control" name="email" placeholder="Masukkan Email"
+                                required="required">
                         </div>
                         <div style="clear: both;"></div>
                         <div class="form-group col-md-6">
