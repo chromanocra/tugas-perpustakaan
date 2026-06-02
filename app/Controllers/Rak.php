@@ -33,16 +33,20 @@ class Rak extends BaseController
 
     public function input_data_rak()
     {
+        $data = [ 
+            'web_title' => 'Input Data Rak' 
+        ]; 
         $this->requireLogin();
-        echo view('Backend/Template/header');
-        echo view('Backend/Template/sidebar');
-        echo view('Backend/MasterRak/input-rak');
-        echo view('Backend/Template/footer');
+        echo view('Backend/Template/header', $data);
+        echo view('Backend/Template/sidebar', $data);
+        echo view('Backend/MasterRak/input-rak', $data);
+        echo view('Backend/Template/footer', $data);
     }
 
     public function simpan_data_rak()
     {
         $this->requireLogin();
+
         $modelRak = new M_Rak();
         $nama_rak = $this->request->getPost('nama_rak');
 
@@ -64,6 +68,7 @@ class Rak extends BaseController
             'updated_at' => date('Y-m-d H:i:s')
         ];
         $modelRak->simpanDataRak($dataSimpan);
+
         session()->setFlashdata('success', 'Data Rak Berhasil Ditambahkan!');
         echo '<script>document.location = "' . base_url('admin/master-data-rak') . '";</script>';
     }
@@ -71,7 +76,9 @@ class Rak extends BaseController
     public function edit_data_rak()
     {
         $this->requireLogin();
+
         $modelRak = new M_Rak();
+
         $uri = service('uri');
         $idEdit = $uri->getSegment(3);
 
@@ -88,6 +95,7 @@ class Rak extends BaseController
     public function update_data_rak()
     {
         $this->requireLogin();
+
         $modelRak = new M_Rak();
         $nama_rak = $this->request->getPost('nama_rak');
 
@@ -104,18 +112,45 @@ class Rak extends BaseController
 
     public function hapus_data_rak()
     {
+        // Validasi login
         $this->requireLogin();
+
         $modelRak = new M_Rak();
         $uri = service('uri');
-        $idHapus = $uri->getSegment(3);
+        $idHapus = $uri->getSegment(3); // Ini berisi hash SHA1 dari id_rak
 
-        $dataUpdate = [
-            'is_delete_rak' => '1',
-            'updated_at' => date('Y-m-d H:i:s')
-        ];
-        $whereUpdate = ['sha1(id_rak)' => $idHapus];
-        $modelRak->updateDataRak($dataUpdate, $whereUpdate);
-        session()->setFlashdata('success', 'Data Rak Berhasil Dihapus!');
+        //Cek data rak ada atau tidak berdasarkan SHA1 ID dari URL
+        $dataRak = $modelRak->getDataRak(['sha1(id_rak)' => $idHapus])->getRowArray(); 
+
+        // Validasi jika data rak tidak ditemukan
+        if (!$dataRak) { 
+            session()->setFlashdata('error', 'Data tidak ditemukan!'); 
+            echo '<script>document.location = "' . base_url('admin/master-data-rak') . '";</script>';
+            exit;
+        } 
+
+        $id = $dataRak['id_rak'];
+
+        //Panggil koneksi database CI4 untuk Query Builder tbl_buku
+        $db = \Config\Database::connect();
+
+        // Validasi cek data rak sedang digunakan oleh buku atau tidak
+        $cek = $db->table('tbl_buku') 
+            ->where('id_rak', $id) 
+            ->where('is_delete_buku', '0') 
+            ->countAllResults(); 
+
+        if ($cek > 0) { 
+            session()->setFlashdata('error', 'Rak sedang digunakan oleh buku!'); 
+            echo '<script>document.location = "' . base_url('admin/master-data-rak') . '";</script>';
+            exit;
+        } 
+
+        //Proses Hapus Permanen (menggunakan ke primary key asli)
+        $modelRak->where('id_rak', $id)->delete(); 
+
+        session()->setFlashdata('success', 'Data rak berhasil dihapus permanen!'); 
         echo '<script>document.location = "' . base_url('admin/master-data-rak') . '";</script>';
-    }
+        exit;
+    } 
 }
